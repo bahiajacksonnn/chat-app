@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AudioMessage } from "./AudioMessage";
+import { CtaButton } from "./CtaButton";
 import type { DisplayedMessage } from "@/types/conversation";
 
 interface MessageBubbleProps {
@@ -13,6 +14,14 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         <p className="max-w-[90%] rounded-full bg-white/5 px-3.5 py-1.5 text-center text-[11px] leading-relaxed text-zinc-400">
           {message.content}
         </p>
+      </div>
+    );
+  }
+
+  if (message.type === "cta") {
+    return (
+      <div className="flex justify-start px-1 animate-message-in">
+        <CtaButton url={message.content} label={message.meta?.linkLabel || "Abrir link"} />
       </div>
     );
   }

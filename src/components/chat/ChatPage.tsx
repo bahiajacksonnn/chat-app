@@ -41,7 +41,7 @@ export function ChatPage({ slug }: ChatPageProps) {
     };
   }, [slug]);
 
-  const { displayedMessages, currentOptions, activeIndicator, characterStatus, selectOption, restart } =
+  const { displayedMessages, currentOptions, activeIndicator, characterStatus, selectOption } =
     useConversationEngine(slug, data);
 
   if (notFound) {
@@ -67,12 +67,7 @@ export function ChatPage({ slug }: ChatPageProps) {
 
   return (
     <div className="flex h-dvh flex-col bg-zinc-950">
-      <ChatHeader
-        character={data.character}
-        status={characterStatus}
-        onBack={() => router.back()}
-        onRestart={restart}
-      />
+      <ChatHeader character={data.character} status={characterStatus} onBack={() => router.back()} />
       <ChatMessages messages={displayedMessages} activeIndicator={activeIndicator} />
       <ResponseOptions options={currentOptions} onSelect={selectOption} />
     </div>

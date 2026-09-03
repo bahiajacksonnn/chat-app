@@ -8,7 +8,6 @@ interface ChatHeaderProps {
   character: CharacterProfile;
   status: CharacterStatus;
   onBack?: () => void;
-  onRestart: () => void;
 }
 
 const STATUS_LABEL: Record<CharacterStatus, string> = {
@@ -18,8 +17,7 @@ const STATUS_LABEL: Record<CharacterStatus, string> = {
   offline: "offline",
 };
 
-export function ChatHeader({ character, status, onBack, onRestart }: ChatHeaderProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
+export function ChatHeader({ character, status, onBack }: ChatHeaderProps) {
   const [aboutOpen, setAboutOpen] = useState(false);
 
   return (
@@ -62,54 +60,18 @@ export function ChatHeader({ character, status, onBack, onRestart }: ChatHeaderP
           </p>
         </div>
 
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Mais opções"
-            aria-expanded={menuOpen}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-zinc-300 transition-colors hover:bg-white/5 active:bg-white/10"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="12" cy="5" r="1.8" />
-              <circle cx="12" cy="12" r="1.8" />
-              <circle cx="12" cy="19" r="1.8" />
-            </svg>
-          </button>
-
-          {menuOpen && (
-            <>
-              <button
-                type="button"
-                aria-label="Fechar menu"
-                className="fixed inset-0 z-30 cursor-default"
-                onClick={() => setMenuOpen(false)}
-              />
-              <div className="absolute right-0 top-11 z-40 w-56 overflow-hidden rounded-xl border border-white/10 bg-zinc-900 py-1 shadow-xl shadow-black/40">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setAboutOpen(true);
-                    setMenuOpen(false);
-                  }}
-                  className="block w-full px-4 py-2.5 text-left text-sm text-zinc-200 hover:bg-white/5"
-                >
-                  Sobre esta experiência
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onRestart();
-                    setMenuOpen(false);
-                  }}
-                  className="block w-full px-4 py-2.5 text-left text-sm text-zinc-200 hover:bg-white/5"
-                >
-                  Reiniciar conversa
-                </button>
-              </div>
-            </>
-          )}
-        </div>
+        <button
+          type="button"
+          onClick={() => setAboutOpen(true)}
+          aria-label="Sobre esta experiência"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-zinc-300 transition-colors hover:bg-white/5 active:bg-white/10"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="5" r="1.8" />
+            <circle cx="12" cy="12" r="1.8" />
+            <circle cx="12" cy="19" r="1.8" />
+          </svg>
+        </button>
       </header>
 
       {aboutOpen && (
